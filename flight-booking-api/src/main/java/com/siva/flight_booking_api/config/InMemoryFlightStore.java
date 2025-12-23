@@ -1,0 +1,26 @@
+package com.siva.flight_booking_api.config;
+
+
+import com.siva.flight_booking_api.entity.FlightInfo;
+import jakarta.annotation.PostConstruct;
+import org.springframework.stereotype.Component;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+@Component
+public class InMemoryFlightStore {
+
+    private final Map<String, FlightInfo> flights = new ConcurrentHashMap<>();
+
+    @PostConstruct
+    public void loadFlights() {
+        flights.put("AI101", new FlightInfo("AI101", 10));
+        flights.put("BA202", new FlightInfo("BA202", 5));
+        flights.put("LH303", new FlightInfo("LH303", 8));
+    }
+
+    public FlightInfo getFlight(String flightNumber) {
+        return flights.get(flightNumber);
+    }
+}
