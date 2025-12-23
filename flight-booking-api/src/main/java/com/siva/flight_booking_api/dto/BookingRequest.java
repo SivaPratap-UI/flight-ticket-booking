@@ -1,61 +1,34 @@
 package com.siva.flight_booking_api.dto;
 
 import com.siva.flight_booking_api.enums.SeatClass;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
-import java.time.LocalDate;
+import java.util.List;
 
 public class BookingRequest {
 
     @NotBlank
     private String flightNumber;
 
-    @NotBlank
-    private String firstName;
-
-    @NotBlank
-    private String lastName;
-
-    @NotNull
-    private LocalDate dateOfBirth;
-
-    @NotNull
-    @Min(1)
-    private Integer numberOfSeats;
-
     @NotNull
     private SeatClass seatClass;
 
-    private String passportNumber;
+    @NotEmpty
+    @Valid
+    private List<PassengerRequest> passengers; // ✅ list of users
 
     public String getFlightNumber() {
         return flightNumber;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
     }
 
     public SeatClass getSeatClass() {
         return seatClass;
     }
 
-    public Integer getNumberOfSeats() {
-        return numberOfSeats;
-    }
-
-    public String getPassportNumber() {
-        return passportNumber;
+    public List<PassengerRequest> getPassengers() {
+        return passengers;
     }
 }
-

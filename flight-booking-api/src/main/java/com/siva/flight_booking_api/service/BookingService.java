@@ -10,6 +10,7 @@ import com.siva.flight_booking_api.exceptions.FlightNotFoundException;
 import com.siva.flight_booking_api.exceptions.OverbookingException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -21,39 +22,45 @@ public class BookingService {
         this.flightStore = flightStore;
     }
 
-    public BookingResponse bookFlight(BookingRequest request) {
+    public List<BookingResponse> bookFlight(BookingRequest request) {
 
         FlightInfo flight = flightStore.getFlight(request.getFlightNumber());
         if (flight == null) {
             throw new FlightNotFoundException("Flight not found");
         }
 
+        int seatsRequested = request.getPassengers().size();
+
         synchronized (flight) {
-            if (!flight.canBook(request.getSeatClass(), request.getNumberOfSeats())) {
+
+            // ✅ Validate seats ONCE for the whole group
+            if (!flight.canBook(request.getSeatClass(), seatsRequested)) {
                 throw new OverbookingException(
                         "Not enough seats available in " + request.getSeatClass()
                 );
             }
 
-            flight.bookSeats(
-                    request.getSeatClass(),
-                    request.getNumberOfSeats()
-            );
+            // ✅ Reserve seats once
+            flight.bookSeats(request.getSeatClass(), seatsRequested);
+
+            // ✅ Create bookings per passenger
+            return request.getPassengers().stream()
+                    .map(p -> {
+                        Booking booking = new Booking(
+                                UUID.randomUUID(),
+                                request.getFlightNumber(),
+                                p.getFirstName(),
+                                p.getLastName(),
+                                p.getDateOfBirth(),
+                                1,
+                                p.getPassportNumber(),
+                                request.getSeatClass()
+                        );
+                        return new BookingResponse(booking);
+                    })
+                    .toList();
         }
-
-        Booking booking = new Booking(
-                UUID.randomUUID(),
-                request.getFlightNumber(),
-                request.getFirstName(),
-                request.getLastName(),
-                request.getDateOfBirth(),
-                request.getNumberOfSeats(),
-                request.getPassportNumber(),
-                request.getSeatClass()
-
-        );
-
-        return new BookingResponse(booking);
     }
+
 
 }
