@@ -1,5 +1,6 @@
 package com.siva.flight_booking_api.dto;
 
+import com.siva.flight_booking_api.enums.SeatClass;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -24,6 +25,9 @@ public class BookingRequest {
     @Min(1)
     private Integer numberOfSeats;
 
+    @NotNull
+    private SeatClass seatClass;
+
     private String passportNumber;
 
     public String getFlightNumber() {
@@ -40,6 +44,10 @@ public class BookingRequest {
 
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
+    }
+
+    public SeatClass getSeatClass() {
+        return seatClass;
     }
 
     public Integer getNumberOfSeats() {

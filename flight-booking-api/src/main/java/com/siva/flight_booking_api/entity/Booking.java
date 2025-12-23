@@ -1,5 +1,6 @@
 package com.siva.flight_booking_api.entity;
 
+import com.siva.flight_booking_api.enums.SeatClass;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -22,10 +23,11 @@ public class Booking {
     private Integer seats;
     private String passportNumber;
     private String status;
+    private SeatClass seatClass;
 
     public Booking(UUID bookingId, String flightNumber, String firstName,
                    String lastName, LocalDate dateOfBirth,
-                   Integer seats, String passportNumber) {
+                   Integer seats, String passportNumber, SeatClass seatClass) {
 
         this.bookingId = bookingId;
         this.flightNumber = flightNumber;
@@ -35,6 +37,7 @@ public class Booking {
         this.seats = seats;
         this.passportNumber = passportNumber;
         this.status = "CONFIRMED";
+        this.seatClass = seatClass;
     }
 
     public UUID getBookingId() {
@@ -59,5 +62,9 @@ public class Booking {
 
     public String getStatus() {
         return status;
+    }
+
+    public SeatClass getSeatClass() {
+        return seatClass;
     }
 }

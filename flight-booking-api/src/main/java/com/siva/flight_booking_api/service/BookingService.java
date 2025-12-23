@@ -42,7 +42,8 @@ public class BookingService {
                 request.getLastName(),
                 request.getDateOfBirth(),
                 request.getNumberOfSeats(),
-                request.getPassportNumber()
+                request.getPassportNumber(),
+                request.getSeatClass()
         );
 
         return new BookingResponse(booking);
