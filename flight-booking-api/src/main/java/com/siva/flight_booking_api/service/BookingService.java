@@ -29,10 +29,16 @@ public class BookingService {
         }
 
         synchronized (flight) {
-            if (!flight.canBook(request.getNumberOfSeats())) {
-                throw new OverbookingException("Not enough seats available");
+            if (!flight.canBook(request.getSeatClass(), request.getNumberOfSeats())) {
+                throw new OverbookingException(
+                        "Not enough seats available in " + request.getSeatClass()
+                );
             }
-            flight.bookSeats(request.getNumberOfSeats());
+
+            flight.bookSeats(
+                    request.getSeatClass(),
+                    request.getNumberOfSeats()
+            );
         }
 
         Booking booking = new Booking(
@@ -44,8 +50,10 @@ public class BookingService {
                 request.getNumberOfSeats(),
                 request.getPassportNumber(),
                 request.getSeatClass()
+
         );
 
         return new BookingResponse(booking);
     }
+
 }

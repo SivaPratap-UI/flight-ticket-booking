@@ -15,9 +15,9 @@ public class InMemoryFlightStore {
 
     @PostConstruct
     public void loadFlights() {
-        flights.put("AI101", new FlightInfo("AI101", 10));
-        flights.put("BA202", new FlightInfo("BA202", 5));
-        flights.put("LH303", new FlightInfo("LH303", 8));
+        flights.put("AI101", new FlightInfo("AI101", 6, 3, 1));
+        flights.put("BA202", new FlightInfo("BA202", 10, 4, 2));
+        flights.put("LH303", new FlightInfo("LH303", 8, 2, 1));
     }
 
     public FlightInfo getFlight(String flightNumber) {
