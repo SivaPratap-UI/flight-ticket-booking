@@ -2,8 +2,17 @@ package com.siva.flight_booking_api.dto;
 
 import com.siva.flight_booking_api.entity.Booking;
 import com.siva.flight_booking_api.enums.SeatClass;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.UUID;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 
 public class BookingResponse {
 
@@ -25,12 +34,5 @@ public class BookingResponse {
         this.seatClass = booking.getSeatClass();
     }
 
-    public UUID getBookingId() {
-        return bookingId;
-    }
-
-    public String getStatus() {
-        return status;
-    }
 }
 

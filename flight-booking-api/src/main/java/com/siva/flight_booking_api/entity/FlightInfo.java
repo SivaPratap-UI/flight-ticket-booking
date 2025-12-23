@@ -47,8 +47,5 @@ public class FlightInfo {
         bookedSeats.put(seatClass, bookedSeats.get(seatClass) + seats);
     }
 
-    public String getFlightNumber() {
-        return flightNumber;
-    }
 }
 

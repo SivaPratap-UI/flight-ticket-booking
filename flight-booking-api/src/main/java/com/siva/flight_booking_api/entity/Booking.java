@@ -4,7 +4,9 @@ import com.siva.flight_booking_api.enums.SeatClass;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -12,6 +14,9 @@ import java.util.UUID;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
+
 public class Booking {
 
     @Id
@@ -40,31 +45,4 @@ public class Booking {
         this.seatClass = seatClass;
     }
 
-    public UUID getBookingId() {
-        return bookingId;
-    }
-
-    public String getFlightNumber() {
-        return flightNumber;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getPassportNumber() {
-        return passportNumber;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public SeatClass getSeatClass() {
-        return seatClass;
-    }
 }
